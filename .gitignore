@@ -2,7 +2,8 @@
 tags
 
 # No vim swap files
-*.sw*
+*.swp
+*.swo
 
 # Ignore intermediate build files
 *.a
