@@ -15,7 +15,11 @@ let package = Package(
         targets: [
             .binaryTarget(
                 name: "XMTPRustSwift",
+<<<<<<< Updated upstream
                 path: "bundle.zip",
             ),
+=======
+                path: "XMTPRustSwift.xcframework"),
+>>>>>>> Stashed changes
         ]
 )
