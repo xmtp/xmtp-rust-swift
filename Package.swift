@@ -10,19 +10,12 @@ let package = Package(
         products: [
             .library(
                 name: "XMTPRust",
-                targets: ["XMTPRust", "XMTPRustSwift", "Bridge"]),
+                targets: ["XMTPRust", "XMTPRustSwift"]),
         ],
         targets: [
             .target(
                 name: "XMTPRust",
-                dependencies: ["Bridge"],
-                linkerSettings: [
-                    .linkedFramework("XMTPRustSwift", .when(platforms: [.iOS, .macOS]))
-                ]),
-            .target(
-                name: "Bridge",
-                dependencies: ["XMTPRustSwift"],
-                path: "Sources/Bridge"),
+                dependencies: ["XMTPRustSwift"]),
             .binaryTarget(
                 name: "XMTPRustSwift",
                 path: "XMTPRustSwift.xcframework"),
