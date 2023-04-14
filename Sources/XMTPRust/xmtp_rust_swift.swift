@@ -1,8 +1,7 @@
 import XMTPRustSwift
-
-public func query_topic<GenericIntoRustString: IntoRustString>(_ topic: GenericIntoRustString) async -> ResponseJson {
+public func query<GenericIntoRustString: IntoRustString>(_ host: GenericIntoRustString, _ topic: GenericIntoRustString, _ json_paging_info: GenericIntoRustString) async -> ResponseJson {
     func onComplete(cbWrapperPtr: UnsafeMutableRawPointer?, rustFnRetVal: __swift_bridge__$ResponseJson) {
-        let wrapper = Unmanaged<CbWrapper$query_topic>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
+        let wrapper = Unmanaged<CbWrapper$query>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
         wrapper.cb(.success(rustFnRetVal.intoSwiftRepr()))
     }
 
@@ -11,13 +10,37 @@ public func query_topic<GenericIntoRustString: IntoRustString>(_ topic: GenericI
             continuation.resume(with: rustFnRetVal)
         }
 
-        let wrapper = CbWrapper$query_topic(cb: callback)
+        let wrapper = CbWrapper$query(cb: callback)
         let wrapperPtr = Unmanaged.passRetained(wrapper).toOpaque()
 
-        __swift_bridge__$query_topic(wrapperPtr, onComplete, { let rustString = topic.intoRustString(); rustString.isOwned = false; return rustString.ptr }())
+        __swift_bridge__$query(wrapperPtr, onComplete, { let rustString = host.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), { let rustString = topic.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), { let rustString = json_paging_info.intoRustString(); rustString.isOwned = false; return rustString.ptr }())
     })
 }
-class CbWrapper$query_topic {
+class CbWrapper$query {
+    var cb: (Result<ResponseJson, Never>) -> ()
+
+    public init(cb: @escaping (Result<ResponseJson, Never>) -> ()) {
+        self.cb = cb
+    }
+}
+public func publish<GenericIntoRustString: IntoRustString>(_ host: GenericIntoRustString, _ token: GenericIntoRustString, _ json_envelopes: GenericIntoRustString) async -> ResponseJson {
+    func onComplete(cbWrapperPtr: UnsafeMutableRawPointer?, rustFnRetVal: __swift_bridge__$ResponseJson) {
+        let wrapper = Unmanaged<CbWrapper$publish>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
+        wrapper.cb(.success(rustFnRetVal.intoSwiftRepr()))
+    }
+
+    return await withCheckedContinuation({ (continuation: CheckedContinuation<ResponseJson, Never>) in
+        let callback = { rustFnRetVal in
+            continuation.resume(with: rustFnRetVal)
+        }
+
+        let wrapper = CbWrapper$publish(cb: callback)
+        let wrapperPtr = Unmanaged.passRetained(wrapper).toOpaque()
+
+        __swift_bridge__$publish(wrapperPtr, onComplete, { let rustString = host.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), { let rustString = token.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), { let rustString = json_envelopes.intoRustString(); rustString.isOwned = false; return rustString.ptr }())
+    })
+}
+class CbWrapper$publish {
     var cb: (Result<ResponseJson, Never>) -> ()
 
     public init(cb: @escaping (Result<ResponseJson, Never>) -> ()) {

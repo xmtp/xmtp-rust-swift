@@ -1,6 +1,7 @@
 // swift-tools-version:5.3
 import PackageDescription
 import Foundation
+
 let package = Package(
         name: "XMTPRust",
         platforms: [

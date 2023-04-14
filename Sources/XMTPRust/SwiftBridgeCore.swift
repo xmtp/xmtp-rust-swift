@@ -1,5 +1,5 @@
-import Foundation
 import XMTPRustSwift
+import Foundation
 
 extension RustString {
     public func toString() -> String {
