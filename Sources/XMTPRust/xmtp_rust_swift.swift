@@ -1,3 +1,5 @@
+import XMTPRustSwift
+
 public func query_topic<GenericIntoRustString: IntoRustString>(_ topic: GenericIntoRustString) async -> ResponseJson {
     func onComplete(cbWrapperPtr: UnsafeMutableRawPointer?, rustFnRetVal: __swift_bridge__$ResponseJson) {
         let wrapper = Unmanaged<CbWrapper$query_topic>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
