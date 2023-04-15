@@ -16,7 +16,9 @@ let package = Package(
         targets: [
             .target(
                 name: "XMTPRust",
-                dependencies: ["XMTPRustSwift"]),
+                dependencies: ["XMTPRustSwift"],
+                path: "Sources/XMTPRust"
+            ),
             .binaryTarget(
                 name: "XMTPRustSwift",
                 path: "XMTPRustSwift.xcframework"),
