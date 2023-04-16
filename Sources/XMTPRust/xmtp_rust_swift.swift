@@ -47,6 +47,30 @@ class CbWrapper$publish {
         self.cb = cb
     }
 }
+public func subscribe_once<GenericIntoRustString: IntoRustString>(_ host: GenericIntoRustString, _ topics: RustVec<GenericIntoRustString>) async -> ResponseJson {
+    func onComplete(cbWrapperPtr: UnsafeMutableRawPointer?, rustFnRetVal: __swift_bridge__$ResponseJson) {
+        let wrapper = Unmanaged<CbWrapper$subscribe_once>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
+        wrapper.cb(.success(rustFnRetVal.intoSwiftRepr()))
+    }
+
+    return await withCheckedContinuation({ (continuation: CheckedContinuation<ResponseJson, Never>) in
+        let callback = { rustFnRetVal in
+            continuation.resume(with: rustFnRetVal)
+        }
+
+        let wrapper = CbWrapper$subscribe_once(cb: callback)
+        let wrapperPtr = Unmanaged.passRetained(wrapper).toOpaque()
+
+        __swift_bridge__$subscribe_once(wrapperPtr, onComplete, { let rustString = host.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), { let val = topics; val.isOwned = false; return val.ptr }())
+    })
+}
+class CbWrapper$subscribe_once {
+    var cb: (Result<ResponseJson, Never>) -> ()
+
+    public init(cb: @escaping (Result<ResponseJson, Never>) -> ()) {
+        self.cb = cb
+    }
+}
 public struct ResponseJson {
     public var error: RustString
     public var json: RustString

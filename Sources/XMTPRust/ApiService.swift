@@ -52,40 +52,33 @@ public class ApiService {
         return response.json.toString()
     }
 
-//    // Subscribe, we need to fake an AsyncThrowingStream by cleverly using a DispatchQueue and repeatedly
-//    // calling an async function that will call XMTPRust.subscribe_serialized and return a string
-//    // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
-//    func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
-//        return AsyncThrowingStream { continuation in
-//            // Create a DispatchQueue
-//            let queue = DispatchQueue(label: "XMTPRust.subscribe_serialized")
-//            
-//            // Create a timer that will call the async function every 1 second
-//            let timer = DispatchSource.makeTimerSource(queue: queue)
-//            timer.schedule(deadline: .now(), repeating: .seconds(1))
-//            timer.setEventHandler {
-//                Task {
-//                    // Call XMTPRust.subscribe_serialized with the given parameters, expect a String
-//                    // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
-//                    let response = try await XMTPRust.subscribe_serialized(topics)
-//
-//                    // If the error is not an empty string
-//                    if response.error != "" {
-//                        continuation.finish(throwing: NSError(domain: "XMTPRust", code: 0, userInfo: [NSLocalizedDescriptionKey: response.error]))
-//                    }
-//
-//                    // Yield the response
-//                    continuation.yield(response.json)
-//                }
-//            }
-//            
-//            // Start the timer
-//            timer.resume()
-//            
-//            // Return a closure that will cancel the timer
-//            return {
-//                timer.cancel()
-//            }
-//        }
-//    }
+    // Subscribe, we need to fake an AsyncThrowingStream by cleverly using a DispatchQueue and repeatedly
+    // calling an async function that will call XMTPRust.subscribe_serialized and return a string
+    // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
+    func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
+        return AsyncThrowingStream { continuation in
+            // Create a DispatchQueue
+            let queue = DispatchQueue(label: "XMTPRust.subscribe_serialized")
+            // Run a constant for loop that calls subscribe_once over and over
+            queue.async {
+                Task {
+                    let vec = RustVec<RustString>()
+                    for topic in topics {
+                        vec.push(value: topic.intoRustString())
+                    }
+                    // Call XMTPRust.subscribe_serialized with the given parameters, expect a String
+                    // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
+                    let response = await XMTPRust.subscribe_once(self.environment.intoRustString(), vec)
+
+                    // If the error is not an empty string
+                    if response.error.toString() != "" {
+                        continuation.finish(throwing: NSError(domain: "XMTPRust", code: 0, userInfo: [NSLocalizedDescriptionKey: response.error.toString()]))
+                    }
+
+                    // Yield the response
+                    continuation.yield(response.json.toString())
+                }
+            }
+        }
+    }
 }
