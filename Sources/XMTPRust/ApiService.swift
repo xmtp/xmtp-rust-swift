@@ -59,7 +59,7 @@ public class ApiService {
     // Subscribe, we need to fake an AsyncThrowingStream by cleverly using a DispatchQueue and repeatedly
     // calling an async function that will call XMTPRust.subscribe_serialized and return a string
     // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
-    func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
+    public func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
         return AsyncThrowingStream { continuation in
             // Create a DispatchQueue
             let queue = DispatchQueue(label: "XMTPRust.subscribe_serialized")
