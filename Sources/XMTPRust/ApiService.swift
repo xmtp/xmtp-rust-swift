@@ -39,10 +39,14 @@ public class ApiService {
     }
 
     // Publishes a string, which better be an encoded Xmtp_MessageApi_V1_PublishRequest with envelopes provided
-    public func publish(token: String, envelopes: String) async throws -> String {
+    public func publish(token: String, envelopes: [String]) async throws -> String {
         // Call XMTPRust.publish_serialized with the given parameters, expect a XMTPRust.ResponseJson object
         // that has { error: String, json: String }
-        let response: ResponseJson = await XMTPRust.publish(self.environment.intoRustString(), token.intoRustString(), envelopes.intoRustString())
+        var envelopeVec = RustVec<RustString>()
+        for envStr in envelopes {
+            envelopeVec.push(value: envStr.intoRustString())
+        }
+        let response: ResponseJson = await XMTPRust.publish(self.environment.intoRustString(), token.intoRustString(), envelopeVec)
         
         // If the error is not an empty string
         if response.error.toString() != "" {
@@ -55,7 +59,7 @@ public class ApiService {
     // Subscribe, we need to fake an AsyncThrowingStream by cleverly using a DispatchQueue and repeatedly
     // calling an async function that will call XMTPRust.subscribe_serialized and return a string
     // that better be an encoded Xmtp_MessageApi_V1_SubscribeResponse with envelopes provided
-    func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
+    public func subscribe(topics: [String]) -> AsyncThrowingStream<String, Error> {
         return AsyncThrowingStream { continuation in
             // Create a DispatchQueue
             let queue = DispatchQueue(label: "XMTPRust.subscribe_serialized")
