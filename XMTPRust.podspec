@@ -15,4 +15,7 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = 'XMTPRustSwift.xcframework'
 
   s.source_files = 'Sources/XMTPRust/**/*'
+  s.test_spec 'UnitTests' do |test_spec|
+    test_spec.source_files = 'Tests/XMTPRust-Tests/**/*'
+  end
 end
