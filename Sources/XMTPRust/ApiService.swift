@@ -9,7 +9,8 @@ import Foundation
 
 // The goal of this class is to provide a steady-ish Swift interface between Rust and xmtp-ios
 public class ApiService {
-    static let shared = ApiService()
+    // Public static shared instance
+    public static let shared = ApiService()
     
     let environment: String
     let secure: Bool
@@ -17,11 +18,6 @@ public class ApiService {
     public init(environment: String = "https://dev.xmtp.network", secure: Bool = true) {
         self.environment = environment
         self.secure = secure
-    }
-
-    // shared getter
-    public static func get() -> ApiService {
-        return ApiService.shared
     }
     
     // It's all strings all the time
