@@ -30,3 +30,10 @@ Do things in Rust that are hard in Swift
 │                                    │                             │                                 │
 └────────────────────────────────────┴─────────────────────────────┴─────────────────────────────────┘
 ```
+
+## Releases
+
+**NOTE**: No release is considered ready for any external consumption. This repository is very WIP.
+
+- 0.1.0 - First release of Swift Package with publish/query working
+- 0.1.1 - First attempted release of dual Swift Package and Cocoapod compatible repo
