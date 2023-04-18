@@ -83,6 +83,9 @@ public func verify_k256_sha256(_ public_key_bytes: RustVec<UInt8>, _ message: Ru
 public func diffie_hellman_k256(_ private_key_bytes: RustVec<UInt8>, _ public_key_bytes: RustVec<UInt8>) -> BytesResult {
     __swift_bridge__$diffie_hellman_k256({ let val = private_key_bytes; val.isOwned = false; return val.ptr }(), { let val = public_key_bytes; val.isOwned = false; return val.ptr }()).intoSwiftRepr()
 }
+public func public_key_from_private_key_k256(_ private_key_bytes: RustVec<UInt8>) -> BytesResult {
+    __swift_bridge__$public_key_from_private_key_k256({ let val = private_key_bytes; val.isOwned = false; return val.ptr }()).intoSwiftRepr()
+}
 public struct ResponseJson {
     public var error: RustString
     public var json: RustString

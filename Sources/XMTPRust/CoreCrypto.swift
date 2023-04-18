@@ -60,11 +60,11 @@ public class CoreCrypto {
         let rustVecPrivateKey = rustVecFromData(data: privateKeyBytes)
         let rustVecPublicKey = rustVecFromData(data: publicKeyBytes)
         // Call the Rust diffie_hellman_k256 function to get a RustVec back
-        let byteResult: BytesResult = XMTPRust.diffie_hellman_k256(rustVecPrivateKey, rustVecPublicKey)
-        if !byteResult.error.toString().isEmpty {
-            throw NSError(domain: "XMTP", code: 0, userInfo: [NSLocalizedDescriptionKey: byteResult.error.toString()])
+        let bytesResult: BytesResult = XMTPRust.diffie_hellman_k256(rustVecPrivateKey, rustVecPublicKey)
+        if !bytesResult.error.toString().isEmpty {
+            throw NSError(domain: "XMTP", code: 0, userInfo: [NSLocalizedDescriptionKey: bytesResult.error.toString()])
         }
-        return dataFromRustVec(rustVec: byteResult.bytes)
+        return dataFromRustVec(rustVec: bytesResult.bytes)
     }
 
     public static func verify_k256_sha256(publicKeyBytes: Data, message: Data, signature: Data, recoveryId: UInt8) throws -> Bool {
@@ -78,5 +78,13 @@ public class CoreCrypto {
             return false
         }
         return true
+    }
+    
+    public static func get_public_key_from_private(privateKeyBytes: Data) throws -> Data {
+        let bytesResult: BytesResult = XMTPRust.public_key_from_private_key_k256(rustVecFromData(data: privateKeyBytes))
+        if !bytesResult.error.toString().isEmpty {
+            throw NSError(domain: "XMTP", code: 0, userInfo: [NSLocalizedDescriptionKey: bytesResult.error.toString()])
+        }
+        return dataFromRustVec(rustVec: bytesResult.bytes)
     }
 }
