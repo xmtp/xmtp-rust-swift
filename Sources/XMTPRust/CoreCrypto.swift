@@ -95,4 +95,12 @@ public class CoreCrypto {
         }
         return dataFromRustVec(rustVec: bytesResult.bytes)
     }
+
+    public static func recover_public_key_keccak256(message: Data, signature: Data) throws -> Data {
+        let bytesResult: BytesResult = XMTPRust.recover_public_key_k256_keccak256(rustVecFromData(data: message), rustVecFromData(data: signature))
+        if !bytesResult.error.toString().isEmpty {
+            throw NSError(domain: "XMTP", code: 0, userInfo: [NSLocalizedDescriptionKey: bytesResult.error.toString()])
+        }
+        return dataFromRustVec(rustVec: bytesResult.bytes)
+    }
 }

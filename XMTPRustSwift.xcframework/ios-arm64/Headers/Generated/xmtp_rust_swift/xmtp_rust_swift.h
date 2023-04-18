@@ -16,5 +16,6 @@ struct __swift_bridge__$EmptyResult __swift_bridge__$verify_k256_sha256(void* pu
 struct __swift_bridge__$BytesResult __swift_bridge__$diffie_hellman_k256(void* private_key_bytes, void* public_key_bytes);
 struct __swift_bridge__$BytesResult __swift_bridge__$public_key_from_private_key_k256(void* private_key_bytes);
 struct __swift_bridge__$BytesResult __swift_bridge__$recover_public_key_k256_sha256(void* message, void* signature);
+struct __swift_bridge__$BytesResult __swift_bridge__$recover_public_key_k256_keccak256(void* message, void* signature);
 
 
