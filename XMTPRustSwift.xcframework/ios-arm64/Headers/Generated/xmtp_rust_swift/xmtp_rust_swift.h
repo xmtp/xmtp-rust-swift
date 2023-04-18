@@ -8,5 +8,7 @@ void __swift_bridge__$publish(void* callback_wrapper, void __swift_bridge__$publ
 void __swift_bridge__$subscribe_once(void* callback_wrapper, void __swift_bridge__$subscribe_once$async(void* callback_wrapper, struct __swift_bridge__$ResponseJson ret), void* host, void* topics);
 void* __swift_bridge__$sha256(void* data);
 void* __swift_bridge__$keccak256(void* data);
+struct __private__ResultVoidAndPtr __swift_bridge__$verify_k256_sha256(void* public_key_bytes, void* message, void* signature, uint8_t recovery_id);
+struct __private__ResultPtrAndPtr __swift_bridge__$diffie_hellman_k256(void* private_key_bytes, void* public_key_bytes);
 
 

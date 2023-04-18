@@ -76,6 +76,12 @@ public func sha256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
 public func keccak256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
     RustVec(ptr: __swift_bridge__$keccak256({ let val = data; val.isOwned = false; return val.ptr }()))
 }
+public func verify_k256_sha256(_ public_key_bytes: RustVec<UInt8>, _ message: RustVec<UInt8>, _ signature: RustVec<UInt8>, _ recovery_id: UInt8) throws -> () {
+    try { let val = __swift_bridge__$verify_k256_sha256({ let val = public_key_bytes; val.isOwned = false; return val.ptr }(), { let val = message; val.isOwned = false; return val.ptr }(), { let val = signature; val.isOwned = false; return val.ptr }(), recovery_id); if val.is_ok { return  } else { throw RustString(ptr: val.err!) } }()
+}
+public func diffie_hellman_k256(_ private_key_bytes: RustVec<UInt8>, _ public_key_bytes: RustVec<UInt8>) throws -> RustVec<UInt8> {
+    try { let val = __swift_bridge__$diffie_hellman_k256({ let val = private_key_bytes; val.isOwned = false; return val.ptr }(), { let val = public_key_bytes; val.isOwned = false; return val.ptr }()); if val.is_ok { return RustVec(ptr: val.ok_or_err!) } else { throw RustString(ptr: val.ok_or_err!) } }()
+}
 public struct ResponseJson {
     public var error: RustString
     public var json: RustString
