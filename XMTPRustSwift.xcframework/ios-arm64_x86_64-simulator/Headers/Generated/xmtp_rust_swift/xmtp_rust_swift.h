@@ -3,12 +3,16 @@
 #include <stdbool.h>
 typedef struct __swift_bridge__$ResponseJson { void* error; void* json; } __swift_bridge__$ResponseJson;
 typedef struct __swift_bridge__$Option$ResponseJson { bool is_some; __swift_bridge__$ResponseJson val; } __swift_bridge__$Option$ResponseJson;
+typedef struct __swift_bridge__$BytesResult { void* error; void* bytes; } __swift_bridge__$BytesResult;
+typedef struct __swift_bridge__$Option$BytesResult { bool is_some; __swift_bridge__$BytesResult val; } __swift_bridge__$Option$BytesResult;
+typedef struct __swift_bridge__$EmptyResult { void* error; } __swift_bridge__$EmptyResult;
+typedef struct __swift_bridge__$Option$EmptyResult { bool is_some; __swift_bridge__$EmptyResult val; } __swift_bridge__$Option$EmptyResult;
 void __swift_bridge__$query(void* callback_wrapper, void __swift_bridge__$query$async(void* callback_wrapper, struct __swift_bridge__$ResponseJson ret), void* host, void* topic, void* json_paging_info);
 void __swift_bridge__$publish(void* callback_wrapper, void __swift_bridge__$publish$async(void* callback_wrapper, struct __swift_bridge__$ResponseJson ret), void* host, void* token, void* json_envelopes);
 void __swift_bridge__$subscribe_once(void* callback_wrapper, void __swift_bridge__$subscribe_once$async(void* callback_wrapper, struct __swift_bridge__$ResponseJson ret), void* host, void* topics);
 void* __swift_bridge__$sha256(void* data);
 void* __swift_bridge__$keccak256(void* data);
-struct __private__ResultVoidAndPtr __swift_bridge__$verify_k256_sha256(void* public_key_bytes, void* message, void* signature, uint8_t recovery_id);
-struct __private__ResultPtrAndPtr __swift_bridge__$diffie_hellman_k256(void* private_key_bytes, void* public_key_bytes);
+struct __swift_bridge__$EmptyResult __swift_bridge__$verify_k256_sha256(void* public_key_bytes, void* message, void* signature, uint8_t recovery_id);
+struct __swift_bridge__$BytesResult __swift_bridge__$diffie_hellman_k256(void* private_key_bytes, void* public_key_bytes);
 
 

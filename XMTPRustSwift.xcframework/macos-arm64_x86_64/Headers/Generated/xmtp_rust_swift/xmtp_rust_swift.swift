@@ -76,11 +76,11 @@ public func sha256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
 public func keccak256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
     RustVec(ptr: __swift_bridge__$keccak256({ let val = data; val.isOwned = false; return val.ptr }()))
 }
-public func verify_k256_sha256(_ public_key_bytes: RustVec<UInt8>, _ message: RustVec<UInt8>, _ signature: RustVec<UInt8>, _ recovery_id: UInt8) throws -> () {
-    try { let val = __swift_bridge__$verify_k256_sha256({ let val = public_key_bytes; val.isOwned = false; return val.ptr }(), { let val = message; val.isOwned = false; return val.ptr }(), { let val = signature; val.isOwned = false; return val.ptr }(), recovery_id); if val.is_ok { return  } else { throw RustString(ptr: val.err!) } }()
+public func verify_k256_sha256(_ public_key_bytes: RustVec<UInt8>, _ message: RustVec<UInt8>, _ signature: RustVec<UInt8>, _ recovery_id: UInt8) -> EmptyResult {
+    __swift_bridge__$verify_k256_sha256({ let val = public_key_bytes; val.isOwned = false; return val.ptr }(), { let val = message; val.isOwned = false; return val.ptr }(), { let val = signature; val.isOwned = false; return val.ptr }(), recovery_id).intoSwiftRepr()
 }
-public func diffie_hellman_k256(_ private_key_bytes: RustVec<UInt8>, _ public_key_bytes: RustVec<UInt8>) throws -> RustVec<UInt8> {
-    try { let val = __swift_bridge__$diffie_hellman_k256({ let val = private_key_bytes; val.isOwned = false; return val.ptr }(), { let val = public_key_bytes; val.isOwned = false; return val.ptr }()); if val.is_ok { return RustVec(ptr: val.ok_or_err!) } else { throw RustString(ptr: val.ok_or_err!) } }()
+public func diffie_hellman_k256(_ private_key_bytes: RustVec<UInt8>, _ public_key_bytes: RustVec<UInt8>) -> BytesResult {
+    __swift_bridge__$diffie_hellman_k256({ let val = private_key_bytes; val.isOwned = false; return val.ptr }(), { let val = public_key_bytes; val.isOwned = false; return val.ptr }()).intoSwiftRepr()
 }
 public struct ResponseJson {
     public var error: RustString
@@ -118,6 +118,82 @@ extension __swift_bridge__$Option$ResponseJson {
             return __swift_bridge__$Option$ResponseJson(is_some: true, val: v.intoFfiRepr())
         } else {
             return __swift_bridge__$Option$ResponseJson(is_some: false, val: __swift_bridge__$ResponseJson())
+        }
+    }
+}
+public struct BytesResult {
+    public var error: RustString
+    public var bytes: RustVec<UInt8>
+
+    public init(error: RustString,bytes: RustVec<UInt8>) {
+        self.error = error
+        self.bytes = bytes
+    }
+
+    @inline(__always)
+    func intoFfiRepr() -> __swift_bridge__$BytesResult {
+        { let val = self; return __swift_bridge__$BytesResult(error: { let rustString = val.error.intoRustString(); rustString.isOwned = false; return rustString.ptr }(), bytes: { let val = val.bytes; val.isOwned = false; return val.ptr }()); }()
+    }
+}
+extension __swift_bridge__$BytesResult {
+    @inline(__always)
+    func intoSwiftRepr() -> BytesResult {
+        { let val = self; return BytesResult(error: RustString(ptr: val.error), bytes: RustVec(ptr: val.bytes)); }()
+    }
+}
+extension __swift_bridge__$Option$BytesResult {
+    @inline(__always)
+    func intoSwiftRepr() -> Optional<BytesResult> {
+        if self.is_some {
+            return self.val.intoSwiftRepr()
+        } else {
+            return nil
+        }
+    }
+
+    @inline(__always)
+    static func fromSwiftRepr(_ val: Optional<BytesResult>) -> __swift_bridge__$Option$BytesResult {
+        if let v = val {
+            return __swift_bridge__$Option$BytesResult(is_some: true, val: v.intoFfiRepr())
+        } else {
+            return __swift_bridge__$Option$BytesResult(is_some: false, val: __swift_bridge__$BytesResult())
+        }
+    }
+}
+public struct EmptyResult {
+    public var error: RustString
+
+    public init(error: RustString) {
+        self.error = error
+    }
+
+    @inline(__always)
+    func intoFfiRepr() -> __swift_bridge__$EmptyResult {
+        { let val = self; return __swift_bridge__$EmptyResult(error: { let rustString = val.error.intoRustString(); rustString.isOwned = false; return rustString.ptr }()); }()
+    }
+}
+extension __swift_bridge__$EmptyResult {
+    @inline(__always)
+    func intoSwiftRepr() -> EmptyResult {
+        { let val = self; return EmptyResult(error: RustString(ptr: val.error)); }()
+    }
+}
+extension __swift_bridge__$Option$EmptyResult {
+    @inline(__always)
+    func intoSwiftRepr() -> Optional<EmptyResult> {
+        if self.is_some {
+            return self.val.intoSwiftRepr()
+        } else {
+            return nil
+        }
+    }
+
+    @inline(__always)
+    static func fromSwiftRepr(_ val: Optional<EmptyResult>) -> __swift_bridge__$Option$EmptyResult {
+        if let v = val {
+            return __swift_bridge__$Option$EmptyResult(is_some: true, val: v.intoFfiRepr())
+        } else {
+            return __swift_bridge__$Option$EmptyResult(is_some: false, val: __swift_bridge__$EmptyResult())
         }
     }
 }
