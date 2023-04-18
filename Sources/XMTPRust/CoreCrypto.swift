@@ -75,7 +75,7 @@ public class CoreCrypto {
         // Result<(), String> in Rust becomes a throw in Swift and we ignore the return type
         let emptyResult: EmptyResult =  XMTPRust.verify_k256_sha256(rustVecPublicKey, rustVecMessage, rustVecSignature, recoveryId)
         if !emptyResult.error.toString().isEmpty {
-            throw NSError(domain: "XMTP", code: 0, userInfo: [NSLocalizedDescriptionKey: emptyResult.error.toString()])
+            return false
         }
         return true
     }
