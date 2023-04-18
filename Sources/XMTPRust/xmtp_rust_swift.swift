@@ -1,4 +1,5 @@
 import XMTPRustSwift
+import XMTPRustSwift
 public func query<GenericIntoRustString: IntoRustString>(_ host: GenericIntoRustString, _ topic: GenericIntoRustString, _ json_paging_info: GenericIntoRustString) async -> ResponseJson {
     func onComplete(cbWrapperPtr: UnsafeMutableRawPointer?, rustFnRetVal: __swift_bridge__$ResponseJson) {
         let wrapper = Unmanaged<CbWrapper$query>.fromOpaque(cbWrapperPtr!).takeRetainedValue()
@@ -70,6 +71,12 @@ class CbWrapper$subscribe_once {
     public init(cb: @escaping (Result<ResponseJson, Never>) -> ()) {
         self.cb = cb
     }
+}
+public func sha256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
+    RustVec(ptr: __swift_bridge__$sha256({ let val = data; val.isOwned = false; return val.ptr }()))
+}
+public func keccak256(_ data: RustVec<UInt8>) -> RustVec<UInt8> {
+    RustVec(ptr: __swift_bridge__$keccak256({ let val = data; val.isOwned = false; return val.ptr }()))
 }
 public struct ResponseJson {
     public var error: RustString
