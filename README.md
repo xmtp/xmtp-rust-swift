@@ -1,32 +1,51 @@
-# XMTP Rust Swift helper
+# XMTP Rust Swift
 
-Do things in Rust that are hard in Swift
+Swift Package and Cocoapod that wraps an XCFramework emitted by the `bindings/xmtp_rust_swift` crate in [libxmtp](https://github.com/xmtp/libxmtp)
+
+## Usage
+
+**NOTE**: This package is NOT meant to be directly consumed by end users. Instead see [xmtp-ios](https://github.com/xmtp/xmtp-ios) which depends upon this package.
+
+### For testing purposes
+
+Reference in Package.swift:
+```
+...
+.package(url: "https://github.com/xmtp/xmtp-rust-swift", from: "0.2.0-beta0")
+...
+```
+Reference in Podspec:
+```
+...
+spec.dependency 'XMTPRust', '= 0.2.0-beta0'
+...
+```
 
 ## Diagram
 
 ```
 ┌────────────────────────────────────┬─────────────────────────────┬─────────────────────────────────┐
 │                                    │                             │                                 │
-│  xmtp/libxmtp: Shared Rust Code    │  xmtp/xmtp_rust_swift       │xmtp/xmtp-ios - iOS SDK          │
-│    - xmtp-networking               │  - Git repo to host Swift   │- Existing iOS xmtp SDK          │
-│    - xmtp-proto                    │  Package                    │- Add xmtp_rust_swift as Swift   │
-│    |                               │  - ApiService.swift is      │ package dep via Github url      │
-│    ---> bindingx/xmtp_rust_swift   │  thin wrapper of XMTPRust   │- Consumes xmtp/proto on branch  │
-│                                    │    ┌───────────────────┐    │   without gRPC Swift files      │
-│ ┌──────────┐     ┌───────────────┐ │ ┌─►│-Package.swift     │    │- Key: no more GRPC dep!         │
-│ │xmtp-proto├────►│xmtp-networking│ │ │  │-XMTPRust.xcframe..│    │    ┌──────────────────┐         │
-│ └──────────┘     └─────┬─────────┘ │ │  │-Sources/...       │    │    │                  │         │
-│                        │           │ │  │ -ApiService.swift │    │    │ Package.swift    │         │
-│        ┌───────────────▼────┐      │ │  └─────────┬─────────┘    │ ┌──►                  │         │
-│        │libxmtp/bindings/   │      │ │            │  Swift Pkg   │ │  │ - ApiClient.swift│         │
-│        │  xmtp_rust_swift   │      │ │            └──────────────┼─┘  │  - Uses XMTPRust │         │
+│  xmtp/libxmtp: Shared Rust Code    │  xmtp/xmtp-rust-swift       │ xmtp/xmtp-ios - iOS SDK         │
+│    - xmtp-networking               │  - Git repo to host Swift   │ - Existing iOS xmtp SDK         │
+│    - xmtp-proto                    │  Package                    │ - Consumes xmtp-rust-swift as   │
+│    |                               │  - Also contains Podspec    │ a Cocoapod via spec.dependency  │
+│    ---> bindingx/xmtp_rust_swift   │  for XMTPRust pod           │                                 │
+│                                    │    ┌──────────────────────┐ │                                 │
+│ ┌──────────┐     ┌───────────────┐ │ ┌─►│-Package.swift        │ │                                 │
+│ │xmtp-proto├────►│xmtp-networking│ │ │  │-XMTPRustSwift.xcfra..│ │    ┌──────────────────┐         │
+│ └──────────┘     └─────┬─────────┘ │ │  │-Sources/...          │ │    │ XMTP.podspec     │         │
+│                        │           │ │  │ - [Generated files]  │ │    │ Package.swift    │         │
+│        ┌───────────────▼────┐      │ │  └─────────┬────────────┘ │ ┌──► -                │         │
+│        │libxmtp/bindings/   │      │ │            │  Swift Pkg   │ │  │ import XMTPRust  │         │
+│        │  xmtp_rust_swift   │      │ │            └──────────────┼─┘  │                  │         │
 │        │   w/ swift-bridge  │      │ │               Github url  │    └────────┬─────────┘         │
-│        └──────────┬─────────┘      │ ├────────┐                  │             │                   │
+│        └──────────┬─────────┘      │ ├────────┐      or Cocoapod │             │                   │
 │                   │                │ │filecopy│                  ├─────────────▼───────────────────┤
 │           Output: │                │ ├────────┘                  │xmtp/xmtp-react-native           │
-│        ┌──────────▼─────────┐      │ │                           │ - consumes xmtp/xmtp-ios        │
-│        │XMTPRust.xcframework├──────┼─┘                           │ either as a fat static library  │
-│        └────────────────────┘      │                             │ or as a Cocoapod (more work)    │
+│  ┌────────────────▼─────────┐      │ │                           │ - consumes xmtp/xmtp-ios        │
+│  │XMTPRustSwift.xcframework ├──────┼─┘                           │ as a Cocoapod                   │
+│  └──────────────────────────┘      │                             │                                 │
 │                                    │                             │                                 │
 └────────────────────────────────────┴─────────────────────────────┴─────────────────────────────────┘
 ```
@@ -35,5 +54,7 @@ Do things in Rust that are hard in Swift
 
 **NOTE**: No release is considered ready for any external consumption. This repository is very WIP.
 
+- 0.2.0-beta0 - First non-JSON binding version of 0.1.2-beta0, breaks API that xmtp-ios uses but no major bump because still prerelease.
+- 0.1.2-beta0 - First release of Cocoapod and Swift Package which replaces dependencies in xmtp-ios that prevent xmtp-ios Cocoapod packaging
 - 0.1.0 - First release of Swift Package with publish/query working
 - 0.1.1 - First attempted release of dual Swift Package and Cocoapod compatible repo
