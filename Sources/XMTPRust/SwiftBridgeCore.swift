@@ -1,4 +1,6 @@
+import Foundation
 import XMTPRustSwift
+
 import Foundation
 
 extension RustString {
