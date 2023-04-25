@@ -54,6 +54,7 @@ spec.dependency 'XMTPRust', '= 0.2.0-beta0'
 
 **NOTE**: No release is considered ready for any external consumption. This repository is very WIP.
 
+- 0.2.1-beta0 - Fixes a bug where RustString was not implementing NSError correctly.
 - 0.2.0-beta0 - First non-JSON binding version of 0.1.2-beta0, breaks API that xmtp-ios uses but no major bump because still prerelease.
 - 0.1.2-beta0 - First release of Cocoapod and Swift Package which replaces dependencies in xmtp-ios that prevent xmtp-ios Cocoapod packaging
 - 0.1.0 - First release of Swift Package with publish/query working
