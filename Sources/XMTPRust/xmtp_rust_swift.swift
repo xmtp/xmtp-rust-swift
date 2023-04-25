@@ -1,10 +1,11 @@
-import Foundation
 import XMTPRustSwift
+
+import Foundation
 
 extension RustString: @unchecked Sendable {}
 extension RustString: LocalizedError {
     public var errorDescription: String? {
-        return NSLocalizedString("XMTP Rust Error: (self.as_str().toString())", comment: self.as_str().toString())
+        return NSLocalizedString("XMTP Rust Error: \(self.as_str().toString())", comment: self.as_str().toString())
     }
 }
 
