@@ -401,15 +401,6 @@ public class QueryResponse: QueryResponseRefMut {
         }
     }
 }
-extension QueryResponse {
-    public func envelopes() -> RustVec<Envelope> {
-        RustVec(ptr: __swift_bridge__$QueryResponse$envelopes({isOwned = false; return ptr;}()))
-    }
-
-    public func paging_info() -> Optional<PagingInfo> {
-        __swift_bridge__$QueryResponse$paging_info({isOwned = false; return ptr;}()).intoSwiftRepr()
-    }
-}
 public class QueryResponseRefMut: QueryResponseRef {
     public override init(ptr: UnsafeMutableRawPointer) {
         super.init(ptr: ptr)
@@ -420,6 +411,15 @@ public class QueryResponseRef {
 
     public init(ptr: UnsafeMutableRawPointer) {
         self.ptr = ptr
+    }
+}
+extension QueryResponseRef {
+    public func envelopes() -> RustVec<Envelope> {
+        RustVec(ptr: __swift_bridge__$QueryResponse$envelopes(ptr))
+    }
+
+    public func paging_info() -> Optional<PagingInfo> {
+        __swift_bridge__$QueryResponse$paging_info(ptr).intoSwiftRepr()
     }
 }
 extension QueryResponse: Vectorizable {
