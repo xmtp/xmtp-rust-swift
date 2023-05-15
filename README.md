@@ -11,13 +11,13 @@ Swift Package and Cocoapod that wraps an XCFramework emitted by the `bindings/xm
 Reference in Package.swift:
 ```
 ...
-.package(url: "https://github.com/xmtp/xmtp-rust-swift", from: "0.2.0-beta0")
+.package(url: "https://github.com/xmtp/xmtp-rust-swift", from: "0.2.2-beta0")
 ...
 ```
 Reference in Podspec:
 ```
 ...
-spec.dependency 'XMTPRust', '= 0.2.0-beta0'
+spec.dependency 'XMTPRust', '= 0.2.2-beta0'
 ...
 ```
 
@@ -30,15 +30,15 @@ spec.dependency 'XMTPRust', '= 0.2.0-beta0'
 │    - xmtp-networking               │  - Git repo to host Swift   │ - Existing iOS xmtp SDK         │
 │    - xmtp-proto                    │  Package                    │ - Consumes xmtp-rust-swift as   │
 │    |                               │  - Also contains Podspec    │ a Cocoapod via spec.dependency  │
-│    ---> bindingx/xmtp_rust_swift   │  for XMTPRust pod           │                                 │
+│    ---> bindings_swift             │  for XMTPRust pod           │                                 │
 │                                    │    ┌──────────────────────┐ │                                 │
 │ ┌──────────┐     ┌───────────────┐ │ ┌─►│-Package.swift        │ │                                 │
 │ │xmtp-proto├────►│xmtp-networking│ │ │  │-XMTPRustSwift.xcfra..│ │    ┌──────────────────┐         │
 │ └──────────┘     └─────┬─────────┘ │ │  │-Sources/...          │ │    │ XMTP.podspec     │         │
 │                        │           │ │  │ - [Generated files]  │ │    │ Package.swift    │         │
 │        ┌───────────────▼────┐      │ │  └─────────┬────────────┘ │ ┌──► -                │         │
-│        │libxmtp/bindings/   │      │ │            │  Swift Pkg   │ │  │ import XMTPRust  │         │
-│        │  xmtp_rust_swift   │      │ │            └──────────────┼─┘  │                  │         │
+│        │libxmtp/            │      │ │            │  Swift Pkg   │ │  │ import XMTPRust  │         │
+│        │  bindings_swift    │      │ │            └──────────────┼─┘  │                  │         │
 │        │   w/ swift-bridge  │      │ │               Github url  │    └────────┬─────────┘         │
 │        └──────────┬─────────┘      │ ├────────┐      or Cocoapod │             │                   │
 │                   │                │ │filecopy│                  ├─────────────▼───────────────────┤
