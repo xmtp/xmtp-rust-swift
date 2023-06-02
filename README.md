@@ -11,13 +11,13 @@ Swift Package and Cocoapod that wraps an XCFramework emitted by the `bindings/xm
 Reference in Package.swift:
 ```
 ...
-.package(url: "https://github.com/xmtp/xmtp-rust-swift", from: "0.2.2-beta0")
+.package(url: "https://github.com/xmtp/xmtp-rust-swift", from: "0.3.0-beta0")
 ...
 ```
 Reference in Podspec:
 ```
 ...
-spec.dependency 'XMTPRust', '= 0.2.2-beta0'
+spec.dependency 'XMTPRust', '= 0.3.0-beta0'
 ...
 ```
 
@@ -54,6 +54,7 @@ spec.dependency 'XMTPRust', '= 0.2.2-beta0'
 
 **NOTE**: No release is considered ready for any external consumption. This repository is very WIP.
 
+- 0.3.0-beta0 - Use protobuf to serialize across the bridge. Support batch_query.
 - 0.2.2-beta0 - Fix bug in QueryResponse where any accessor call would cause it to be freed. Remove .swift files from include/ dirs.
 - 0.2.1-beta0 - Fixes a bug where RustString was not implementing NSError correctly.
 - 0.2.0-beta0 - First non-JSON binding version of 0.1.2-beta0, breaks API that xmtp-ios uses but no major bump because still prerelease.
