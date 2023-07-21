@@ -134,6 +134,10 @@ extension RustSubscription: Vectorizable {
         }
     }
 
+    public static func vecOfSelfAsPtr(vecPtr: UnsafeMutableRawPointer) -> UnsafePointer<RustSubscriptionRef> {
+        UnsafePointer<RustSubscriptionRef>(OpaquePointer(__swift_bridge__$Vec_RustSubscription$as_ptr(vecPtr)))
+    }
+
     public static func vecOfSelfLen(vecPtr: UnsafeMutableRawPointer) -> UInt {
         __swift_bridge__$Vec_RustSubscription$len(vecPtr)
     }
@@ -274,6 +278,10 @@ extension RustClientRefMut {
             self.cb = cb
         }
     }
+
+    public func set_app_version<GenericIntoRustString: IntoRustString>(_ version: GenericIntoRustString) {
+        __swift_bridge__$RustClient$set_app_version(ptr, { let rustString = version.intoRustString(); rustString.isOwned = false; return rustString.ptr }())
+    }
 }
 public class RustClientRef {
     var ptr: UnsafeMutableRawPointer
@@ -320,6 +328,10 @@ extension RustClient: Vectorizable {
         } else {
             return RustClientRefMut(ptr: pointer!)
         }
+    }
+
+    public static func vecOfSelfAsPtr(vecPtr: UnsafeMutableRawPointer) -> UnsafePointer<RustClientRef> {
+        UnsafePointer<RustClientRef>(OpaquePointer(__swift_bridge__$Vec_RustClient$as_ptr(vecPtr)))
     }
 
     public static func vecOfSelfLen(vecPtr: UnsafeMutableRawPointer) -> UInt {
