@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'XMTPRust'
-  s.version          = '0.3.2-beta0'
+  s.version          = '0.3.3-beta0'
   s.summary          = 'XMTP shared Rust code that powers cross-platform SDKs'
 
   s.homepage         = 'https://github.com/xmtp/xmtp-rust-swift'
