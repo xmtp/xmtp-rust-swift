@@ -40,5 +40,7 @@ struct __private__ResultPtrAndPtr __swift_bridge__$diffie_hellman_k256(void* pri
 struct __private__ResultPtrAndPtr __swift_bridge__$public_key_from_private_key_k256(void* private_key_bytes);
 struct __private__ResultPtrAndPtr __swift_bridge__$recover_public_key_k256_sha256(void* message, void* signature);
 struct __private__ResultPtrAndPtr __swift_bridge__$recover_public_key_k256_keccak256(void* message, void* signature);
+struct __private__ResultPtrAndPtr __swift_bridge__$ecies_encrypt_k256_sha3_256(void* public_key, void* private_key, void* message);
+struct __private__ResultPtrAndPtr __swift_bridge__$ecies_decrypt_k256_sha3_256(void* public_key, void* private_key, void* message);
 
 
