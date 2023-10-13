@@ -64,6 +64,9 @@ public func ecies_encrypt_k256_sha3_256(_ public_key: RustVec<UInt8>, _ private_
 public func ecies_decrypt_k256_sha3_256(_ public_key: RustVec<UInt8>, _ private_key: RustVec<UInt8>, _ message: RustVec<UInt8>) throws -> RustVec<UInt8> {
     try { let val = __swift_bridge__$ecies_decrypt_k256_sha3_256({ let val = public_key; val.isOwned = false; return val.ptr }(), { let val = private_key; val.isOwned = false; return val.ptr }(), { let val = message; val.isOwned = false; return val.ptr }()); if val.is_ok { return RustVec(ptr: val.ok_or_err!) } else { throw RustString(ptr: val.ok_or_err!) } }()
 }
+public func generate_private_preferences_topic_identifier(_ private_key: RustVec<UInt8>) throws -> RustString {
+    try { let val = __swift_bridge__$generate_private_preferences_topic_identifier({ let val = private_key; val.isOwned = false; return val.ptr }()); if val.is_ok { return RustString(ptr: val.ok_or_err!) } else { throw RustString(ptr: val.ok_or_err!) } }()
+}
 
 public class RustSubscription: RustSubscriptionRefMut {
     var isOwned: Bool = true
