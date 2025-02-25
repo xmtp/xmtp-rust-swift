@@ -1,3 +1,14 @@
+![Status](https://img.shields.io/badge/Deprecated-brown)
+
+> [!CAUTION]
+> This repo is no longer maintained.
+
+For your Swift/iOS project, use the [xmtp-ios](https://github.com/xmtp/xmtp-ios) SDK.
+
+The documentation below is provided for historical reference only.
+
+---
+
 # XMTP Rust Swift
 
 Swift Package and Cocoapod that wraps an XCFramework emitted by the `bindings/xmtp_rust_swift` crate in [libxmtp](https://github.com/xmtp/libxmtp)
